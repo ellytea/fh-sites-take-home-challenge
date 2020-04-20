@@ -8,37 +8,37 @@ class PokerHandTest extends TestCase
     /**
      * @test
      */
-    public function itCanRankARoyalFlush()
+    public function check_royal()
     {
         $hand = new PokerHand('As Ks Qs Js 10s');
-        $this->assertEquals('Royal Flush', $hand->getRank());
+        $this->assertEquals('Royal Flush', $hand->get_rank());
     }
 
     /**
      * @test
      */
-    public function itCanRankAPair()
+    public function check_pairs()
     {
         $hand = new PokerHand('Ah As 10c 7d 6s');
-        $this->assertEquals('One Pair', $hand->getRank());
+        $this->assertEquals('One Pair', $hand->get_rank());
     }
 
     /**
      * @test
      */
-    public function itCanRankTwoPair()
+    public function check_straight()
     {
-        $hand = new PokerHand('Kh Kc 3s 3h 2d');
-        $this->assertEquals('Two Pair', $hand->getRank());
+        $hand = new PokerHand('3h 4c 5s 6h 7d');
+        $this->assertEquals('Straight', $hand->get_rank());
     }
 
     /**
      * @test
      */
-    public function itCanRankAFlush()
+    public function check_flush()
     {
         $hand = new PokerHand('Kh Qh 6h 2h 9h');
-        $this->assertEquals('Flush', $hand->getRank());
+        $this->assertEquals('Flush', $hand->get_rank());
     }
 
     // TODO: More tests go here

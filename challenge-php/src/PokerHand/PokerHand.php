@@ -11,23 +11,25 @@ class PokerHand {
     private $suit_cards;
     private $is_paired;
 
-    //passes a string of cards(no spaces)
+    //passes a string of cards //ex. ['As Ks Qs Js 10s']
     public function __construct($hand) {
       //Replaces '10' with 'T' for easy char count
       $noTen = str_replace('10', 'T', $hand);
       $this->hand = str_replace(' ', '', $noTen);
 
+      //creates array with card rank as key and the number of times it;s in the array //ex. ['A'=>2, '4'=>1, '6'=>1, '10'=>1]
       foreach(count_chars($this->hand, 1) as $char => $val) {
         in_array(chr($char),$this->ranks) ? $this->rank_cards[chr($char)] = $val :$this->suit_cards[chr($char)] = $val;
       } 
     }
 
+    //pny checks royal function if hand values array length is 5.. Need more logic here
     private function check_pairs(){
       $faceCount = array_values($this->rank_cards);
       sort($faceCount);
-      $faceCount == [2, 3]? $this->is_paired = 'One Pair': null;
+      $faceCount == [1, 1, 1, 2]? $this->is_paired = 'One Pair': null;
       $faceCount == [1, 2, 2]? $this->is_paired = 'Two Pairs': null;
-      $faceCount == [1, 1, 3]? $this->is_paired = 'Three Pairs': null;
+      $faceCount == [1, 1, 3]? $this->is_paired = 'Three of a Kind': null;
       $faceCount == [1, 4]? $this->is_paired = 'Four of a Kind': null;
       $faceCount == [2, 3]? $this->is_paired = 'Full House': null;
       $faceCount == [1,1,1,1,1]?$this->check_royal() :null;
@@ -46,18 +48,19 @@ class PokerHand {
       } 
     }
 
+    // need to rewrite to use index position as value
     private function check_straight(){
       $keys = array_keys($this->rank_cards);
       if ($keys[0]+1 == $keys[1] && $keys[1]+1 == $keys[2]){
          return true;
-      } else{
       }
     }
     
+    // need to refactor
     public function rank_hand(){
       $this->check_pairs();
       if ($this->check_royal() && $this->check_flush()){
-        return "Royal Flush!";
+        return "Royal Flush";
       }
       if($this->check_royal() && !$this->check_flush()){
         return "Straight Flush";
