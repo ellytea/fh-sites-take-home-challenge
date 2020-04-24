@@ -20,12 +20,13 @@ class PokerHand {
       foreach(count_chars($str_hand, 1) as $char => $val) {
         in_array(chr($char),$this->ranks) ? $this->rank_cards[chr($char)] = $val :$this->suit_cards[chr($char)] = $val;
       }
-      //creates rank value array stored in $hand
+      //creates array of only values stored in $hand //ex. [10,11,12,13,14]
       $keys = array_keys($this->rank_cards);
       foreach($hand as $el){
         $trim = rtrim($el, $el[1]);
         if ($trim == 'A' && array_sum($keys) == 14){
-          $this->hand[] = 1; continue;
+          $this->hand[] = 1;
+          continue;
         }
         $this->hand[] = array_search($trim, $this->ranks)+2;
       }
@@ -61,7 +62,7 @@ class PokerHand {
     
     public function get_rank(){
       $this->check_pairs();
-      if ($this->check_flush()) {
+      if ($this->check_flush() && $this->result == 'High Card'){
         $this->result = 'Flush';
       }
      return $this->result;
