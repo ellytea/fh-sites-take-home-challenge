@@ -52,16 +52,16 @@ class PokerHand {
 
     private function check_straight(){
       sort($this->hand);
-     if ($this->hand[2]+1 == $this->hand[3] && $this->hand[2]-1 == $this->hand[1] && $this->check_flush()){
+     if ($this->hand == range($this->hand[0], $this->hand[4]) && $this->check_flush()){
         $this->result = 'Straight Flush';
-     } else if ($this->hand[2]+1 == $this->hand[3] && $this->hand[2]-1 == $this->hand[1]){
+     } else if ($this->hand == range($this->hand[0],$this->hand[4])){
        $this->result = 'Straight';
      }
     }
     
     public function get_rank(){
       $this->check_pairs();
-      if ($this->check_flush() && $this->result == 'High Card') {
+      if ($this->check_flush()) {
         $this->result = 'Flush';
       }
      return $this->result;
